@@ -1,0 +1,13 @@
+*.bat text
+*.csv text
+*.html text
+*.java text
+*.json text
+*.jsp text
+*.md text
+*.properties text
+*.sh text
+*.txt text
+*.xml text
+.gitignore text
+*.yaml text
