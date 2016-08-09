@@ -1,7 +1,12 @@
 package net.gilstraps.brian.factor2;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import sun.misc.IOUtils;
 
 @RestController
 public class AnimalsController {
@@ -84,50 +92,33 @@ public class AnimalsController {
     @RequestMapping(value = "/{type}/{name}", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
     public synchronized byte[] getAnimalImage(@PathVariable String type, @PathVariable String name) throws NotFoundException, IOException, InterruptedException {
         // HACK!!
-        Path scaledVersion = scale( name );
-        return Files.readAllBytes(scaledVersion);
+        byte[] scaledVersion = scale( name );
+        return scaledVersion;
     }
 
-    // There is so much wrong here it's hard to know where to start...
-    private Path scale(final String resourceName) throws IOException, InterruptedException {
-        Path tempDir = Files.createTempDirectory("myTemp");
-        try {
-
-            Path tempFile = tempDir.resolve(resourceName + ".png");
-            final InputStream inputStream = Animal.class.getResourceAsStream("/" + resourceName + ".png");
-            Files.copy(inputStream, tempFile);
-            Path scaledFile = tempDir.resolve(resourceName + ".scaled.png");
-            String[] args = new String[]{"/usr/local/bin/convert", tempFile.toAbsolutePath().toString(), "-resize", "96x96>", scaledFile.toAbsolutePath().toString()};
-            ProcessBuilder processBuilder = new ProcessBuilder(args);
-            Process p = processBuilder.start();
-            int result = p.waitFor();
-            if ( result != 0 ) {
-                {
-                    InputStream errorStream = p.getErrorStream();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(errorStream));
-                    String line = bufferedReader.readLine();
-                    while (line != null) {
-                        System.err.println(line);
-                        line = bufferedReader.readLine();
-                    }
-                }
-                {
-                    InputStream stdout = p.getInputStream();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                    String line = bufferedReader.readLine();
-                    while (line != null) {
-                        System.out.println(line);
-                        line = bufferedReader.readLine();
-                    }
-                    System.out.flush();
-                }
-            }
-            return scaledFile;
+    // Still a long wrong here...
+    private byte[] scale(final String resourceName) throws IOException, InterruptedException {
+        final InputStream inputStream = Animal.class.getResourceAsStream("/" + resourceName + ".png");
+        final BufferedImage image = ImageIO.read(inputStream);
+        final double width = image.getWidth();
+        final double height = image.getHeight();
+        int newWidth;
+        int newHeight;
+        if ( width > height ) {
+            final double scaleFactor = 96 / width;
+            newWidth = 96;
+            newHeight = (int) Math.round(height * scaleFactor);
         }
-        finally {
-            //noinspection ResultOfMethodCallIgnored
-            tempDir.toFile().delete();
+        else {
+            final double scaleFactor = 96 / height;
+            newHeight = 96;
+            newWidth = (int) Math.round(width * scaleFactor);
         }
+        Image scaled = image.getScaledInstance(newWidth,newHeight, Image.SCALE_SMOOTH);
+        BufferedImage bufferedImage = toBufferedImage(scaled);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage,"png",byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
     }
 
     @RequestMapping(value = "/{type}/{name}", method = RequestMethod.DELETE)
@@ -151,5 +142,24 @@ public class AnimalsController {
     public ResponseEntity<DuplicateNameException> duplicate(DuplicateNameException e) {
         // For now, we don't allow over-writing an existing animal, just for example purposes.
         return new ResponseEntity<DuplicateNameException>(HttpStatus.FORBIDDEN);
+    }
+
+    public static BufferedImage toBufferedImage(Image img)
+    {
+        if (img instanceof BufferedImage)
+        {
+            return (BufferedImage) img;
+        }
+
+        // Create a buffered image with transparency
+        BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+        // Draw the image on to the buffered image
+        Graphics2D bGr = bimage.createGraphics();
+        bGr.drawImage(img, 0, 0, null);
+        bGr.dispose();
+
+        // Return the buffered image
+        return bimage;
     }
 }
