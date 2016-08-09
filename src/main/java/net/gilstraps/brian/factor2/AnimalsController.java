@@ -1,5 +1,15 @@
 package net.gilstraps.brian.factor2;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -69,6 +79,55 @@ public class AnimalsController {
     @RequestMapping(value = "/{type}/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public synchronized Animal getAnimal(@PathVariable String type, @PathVariable String name) throws NotFoundException {
         return typeToAnimals.get(type).stream().filter(a->a.getName().equals(name)).findFirst().orElseThrow(NotFoundException::new);
+    }
+
+    @RequestMapping(value = "/{type}/{name}", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
+    public synchronized byte[] getAnimalImage(@PathVariable String type, @PathVariable String name) throws NotFoundException, IOException, InterruptedException {
+        // HACK!!
+        Path scaledVersion = scale( name );
+        return Files.readAllBytes(scaledVersion);
+    }
+
+    // There is so much wrong here it's hard to know where to start...
+    private Path scale(final String resourceName) throws IOException, InterruptedException {
+        Path tempDir = Files.createTempDirectory("myTemp");
+        try {
+
+            Path tempFile = tempDir.resolve(resourceName + ".png");
+            final InputStream inputStream = Animal.class.getResourceAsStream("/" + resourceName + ".png");
+            Files.copy(inputStream, tempFile);
+            Path scaledFile = tempDir.resolve(resourceName + ".scaled.png");
+            String[] args = new String[]{"/usr/local/bin/convert", tempFile.toAbsolutePath().toString(), "-resize", "96x96>", scaledFile.toAbsolutePath().toString()};
+            ProcessBuilder processBuilder = new ProcessBuilder(args);
+            Process p = processBuilder.start();
+            int result = p.waitFor();
+            if ( result != 0 ) {
+                {
+                    InputStream errorStream = p.getErrorStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(errorStream));
+                    String line = bufferedReader.readLine();
+                    while (line != null) {
+                        System.err.println(line);
+                        line = bufferedReader.readLine();
+                    }
+                }
+                {
+                    InputStream stdout = p.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line = bufferedReader.readLine();
+                    while (line != null) {
+                        System.out.println(line);
+                        line = bufferedReader.readLine();
+                    }
+                    System.out.flush();
+                }
+            }
+            return scaledFile;
+        }
+        finally {
+            //noinspection ResultOfMethodCallIgnored
+            tempDir.toFile().delete();
+        }
     }
 
     @RequestMapping(value = "/{type}/{name}", method = RequestMethod.DELETE)
