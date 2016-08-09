@@ -96,7 +96,7 @@ public class AnimalsController {
         return scaledVersion;
     }
 
-    // Still a long wrong here...
+    // Still a lot long wrong here...
     private byte[] scale(final String resourceName) throws IOException, InterruptedException {
         final InputStream inputStream = Animal.class.getResourceAsStream("/" + resourceName + ".png");
         final BufferedImage image = ImageIO.read(inputStream);
