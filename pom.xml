@@ -20,7 +20,6 @@
     <junit-version>4.11</junit-version>
     <mockito-version>1.9.5</mockito-version>
     <spring-test.version>4.2.4.RELEASE</spring-test.version>
-    <!--<spring-security-test.version>4.0.4.RELEASE</spring-security-test.version>-->
 
   </properties>
   <dependencies>
@@ -119,12 +118,6 @@
       <version>${spring-test.version}</version>
       <scope>test</scope>
     </dependency>
-    <!--<dependency>-->
-      <!--<groupId>org.springframework.security</groupId>-->
-      <!--<artifactId>spring-security-test </artifactId>-->
-      <!--<version>${spring-security-test.version}</version>-->
-      <!--<scope>test</scope>-->
-    <!--</dependency>-->
   </dependencies>
   <build>
     <pluginManagement>
