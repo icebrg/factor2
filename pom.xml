@@ -17,20 +17,12 @@
     <spring.version>4.2.4.RELEASE</spring.version>
 
     <!-- Testing properties -->
-    <java-testing-utils.version>2.3.5</java-testing-utils.version>
     <junit-version>4.11</junit-version>
     <mockito-version>1.9.5</mockito-version>
     <spring-test.version>4.2.4.RELEASE</spring-test.version>
-    <spring-security-test.version>4.0.4.RELEASE</spring-security-test.version>
 
   </properties>
   <dependencies>
-    <dependency>
-      <groupId>com.erac.testing.utils</groupId>
-      <artifactId>testing-utils</artifactId>
-      <version>${java-testing-utils.version}</version>
-      <!--<scope>test</scope>--> <!-- TODO - pull out annotations on their own -->
-    </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
@@ -126,22 +118,6 @@
       <version>${spring-test.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-test </artifactId>
-      <version>${spring-security-test.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <!--<dependency>-->
-    <!--<groupId>org.apache.httpcomponents</groupId>-->
-    <!--<artifactId>httpclient</artifactId>-->
-    <!--<version>4.3.1</version>-->
-    <!--</dependency>-->
-    <!--<dependency>-->
-    <!--<groupId>commons-io</groupId>-->
-    <!--<artifactId>commons-io</artifactId>-->
-    <!--<version>1.4</version>-->
-    <!--</dependency>-->
   </dependencies>
   <build>
     <pluginManagement>
