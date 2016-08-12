@@ -44,7 +44,7 @@ public class AnimalsController {
 
     {
         typeToAnimals.put("cats", new ArrayList<>(Arrays.asList(
-                new Animal("Garfield", "comics", "Fatso"),
+                new Animal("Garfield", "comics", "Chubby"),
                 new Animal("Tom", "cartoons", "Fuzzy"),
                 new Animal("Simon's Cat", "internet", "Snuggly")
         )));

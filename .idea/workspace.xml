@@ -2,18 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da460f22-5e3f-442e-ab71-c6a1e9a91813" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_3_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_4_0_4_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_4_0_4_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_4_0_4_RELEASE.xml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_2_5_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_2_4_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_2_5_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_2_4_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_2_5_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_2_4_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_2_5_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_2_4_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/factor2_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/factor2_war_exploded.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/factor2.iml" afterPath="$PROJECT_DIR$/factor2.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/net/gilstraps/brian/factor2/AnimalsController.java" afterPath="$PROJECT_DIR$/src/main/java/net/gilstraps/brian/factor2/AnimalsController.java" />
     </list>
     <ignored path="RestExample.iws" />
@@ -70,7 +58,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/net/gilstraps/brian/factor2/AnimalsController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="273">
-              <caret line="46" column="56" selection-start-line="46" selection-start-column="56" selection-end-line="46" selection-end-column="56" />
+              <caret line="46" column="56" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -810,7 +798,7 @@
       <workItem from="1469983939446" duration="424000" />
       <workItem from="1470699240485" duration="5815000" />
       <workItem from="1471031497667" duration="117000" />
-      <workItem from="1471034806415" duration="86000" />
+      <workItem from="1471034806415" duration="119000" />
     </task>
     <servers />
   </component>
@@ -829,11 +817,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6442000" />
+    <option name="totallyTimeSpent" value="6475000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="418" y="121" width="1688" height="1128" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="FindBugs-IDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1089,7 +1077,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/net/gilstraps/brian/factor2/AnimalsController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
-          <caret line="46" column="56" selection-start-line="46" selection-start-column="56" selection-end-line="46" selection-end-column="56" />
+          <caret line="46" column="56" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="56" />
           <folding />
         </state>
       </provider>
