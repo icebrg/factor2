@@ -7,9 +7,6 @@
           <element id="module-output" name="factor2" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="Maven: com.erac.testing.utils:testing-utils:2.3.5" />
-          <element id="library" level="project" name="Maven: joda-time:joda-time:2.9.1" />
-          <element id="library" level="project" name="Maven: com.googlecode.openpojo:openpojo:0.6.5" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.3.3" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.3.3" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.3" />
