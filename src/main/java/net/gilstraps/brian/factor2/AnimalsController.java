@@ -55,18 +55,36 @@ public class AnimalsController {
         )));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
     public List<String> getTypesOfAnimals() {
         return typeToAnimals.keySet().stream().sorted().collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/{type}", method = RequestMethod.GET)
+//    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
+//    public List<String> getTypesOfAnimalsV2() {
+//        return typeToAnimals.keySet().stream().sorted().collect(Collectors.toList());
+//    }
+
+    @RequestMapping(value = "/{type}", method = RequestMethod.GET, produces = "application/json; version=1.0.0")
     public synchronized List<Animal> listAnimalsOfType(@PathVariable String type) throws NotFoundException {
-        List<Animal> names = typeToAnimals.get(type);
-        if (names == null) {
+        List<Animal> animals = typeToAnimals.get(type);
+        if (animals == null) {
             throw new NotFoundException("No type '" + type + "'");
         }
-        return names;
+        return animals;
+    }
+
+    @RequestMapping(value = "/{type}", method = RequestMethod.GET,produces = "application/json; version=2.0.0")
+    public synchronized List<Animal2> listAnimalsOfTypeV2(@PathVariable String type) throws NotFoundException {
+        List<Animal> animals = typeToAnimals.get(type);
+        if (animals == null) {
+            throw new NotFoundException("No type '" + type + "'");
+        }
+        // Hack
+        List<Animal2> results = animals.stream()
+                .map(a->new Animal2(a.getName(),a.getHome()))
+                .collect(Collectors.toList());
+        return results;
     }
 
     @RequestMapping(value = "/{type}/{name}", method = RequestMethod.PUT)
